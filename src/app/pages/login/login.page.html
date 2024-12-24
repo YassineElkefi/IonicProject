@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Bienvenue</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">Connectez-vous à votre compte</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.email">
+              <span *ngIf="loginForm.get('email')?.hasError(validation.type) && 
+                          loginForm.get('email')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Mot de passe</ion-label>
+            <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+            <ion-button slot="end" fill="clear" (click)="togglePassword()">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.password">
+              <span *ngIf="loginForm.get('password')?.hasError(validation.type) && 
+                          loginForm.get('password')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" class="ion-margin-top" 
+                    [disabled]="!loginForm.valid">
+            Se connecter
+          </ion-button>
+
+          <ion-button expand="block" fill="clear" routerLink="/register" class="ion-margin-top">
+            Créer un compte
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

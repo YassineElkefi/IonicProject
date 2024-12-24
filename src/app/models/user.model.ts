@@ -3,7 +3,7 @@ export interface User{
     firstName: string;
     lastName: string;
     age: number;
-    photoUrl: string;
+    //photoUrl: string;
     isActive: boolean;
     isAdmin: boolean;
     favoriteMovies: string[];

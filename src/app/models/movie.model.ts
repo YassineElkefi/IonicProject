@@ -1,8 +1,9 @@
 export interface Movie{
     id: string;
     title: string;
+    adult: boolean;
     overview: string;
-    posterPath: string;
-    releaseDate: string;
-    voteAverage: number;
+    original_language: string;
+    original_title: string;
+    release_date: string;
 }

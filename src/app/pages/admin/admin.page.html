@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="shield-checkmark" class="ion-margin-end"></ion-icon>
+      Admin Panel
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" sizeMd="6" sizeXl="4">
+        <ion-card class="admin-card">
+          <ion-card-content>
+            <ion-button expand="block" routerLink="/admin/users" class="ion-margin-bottom">
+              <ion-icon name="people" slot="start"></ion-icon>
+              Manage Users
+            </ion-button>
+
+            <ion-button expand="block" routerLink="/admin/movies">
+              <ion-icon name="film" slot="start"></ion-icon>
+              Manage Movies
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

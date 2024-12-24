@@ -1,0 +1,58 @@
+// Add this to your home.page.scss
+.movie-thumbnail {
+  --size: 100px;
+  
+  ion-icon {
+    font-size: 48px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ion-color-light);
+  }
+}
+
+.movie-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.movie-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+ion-card {
+  margin: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 120px;
+
+    ion-icon {
+      font-size: 32px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1em;
+      font-weight: 500;
+    }
+  }
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}

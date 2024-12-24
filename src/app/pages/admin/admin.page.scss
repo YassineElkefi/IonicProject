@@ -1,0 +1,15 @@
+.admin-card {
+    margin: 1rem 0;
+    box-shadow: none;
+    background: transparent;
+  
+    ion-button {
+      --padding-top: 1.5rem;
+      --padding-bottom: 1.5rem;
+      font-weight: 500;
+      
+      ion-icon {
+        font-size: 1.2rem;
+      }
+    }
+  }

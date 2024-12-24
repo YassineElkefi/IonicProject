@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Movie Explorer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" sizeMd="5" sizeLg="4">
+        <ion-card [routerLink]="['/my-favorites']" class="ion-activatable ripple-parent">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-card-content class="ion-text-center ion-padding">
+            <ion-icon name="heart" color="danger" size="large"></ion-icon>
+            <ion-text>
+              <h2 class="ion-padding-top">My Favorites</h2>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      
+      <ion-col size="6" sizeMd="5" sizeLg="4">
+        <ion-card [routerLink]="['/matching-users']" class="ion-activatable ripple-parent">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-card-content class="ion-text-center ion-padding">
+            <ion-icon name="people" color="primary" size="large"></ion-icon>
+            <ion-text>
+              <h2 class="ion-padding-top">Users Like Me</h2>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-text color="dark">
+    <h1 class="ion-padding-horizontal">All Movies</h1>
+  </ion-text>
+
+  <ion-list>
+    <ion-item *ngFor="let movie of movies" class="ion-margin-vertical">
+      <ion-label class="ion-text-wrap">
+        <h2 class="movie-title">{{ movie.title }}</h2>
+        <p class="ion-padding-vertical">{{ movie.overview | slice:0:100 }}...</p>
+        <div class="movie-meta">
+        </div>
+      </ion-label>
+      
+      <ion-button slot="end" fill="clear" (click)="addToFavorites(movie)">
+        <ion-icon 
+          [name]="userFavorites.includes(movie.id) ? 'heart' : 'heart-outline'"
+          [color]="userFavorites.includes(movie.id) ? 'danger' : 'medium'"
+          size="large">
+        </ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

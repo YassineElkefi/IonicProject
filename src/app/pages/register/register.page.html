@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="auth-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">Créer un compte</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">Remplissez les informations suivantes</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.email">
+              <span *ngIf="registerForm.get('email')?.hasError(validation.type) && 
+                          registerForm.get('email')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Mot de passe</ion-label>
+            <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
+            <ion-button slot="end" fill="clear" (click)="togglePassword()">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.password">
+              <span *ngIf="registerForm.get('password')?.hasError(validation.type) && 
+                          registerForm.get('password')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Prénom</ion-label>
+            <ion-input formControlName="firstName"></ion-input>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.firstName">
+              <span *ngIf="registerForm.get('firstName')?.hasError(validation.type) && 
+                          registerForm.get('firstName')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Nom</ion-label>
+            <ion-input formControlName="lastName"></ion-input>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.lastName">
+              <span *ngIf="registerForm.get('lastName')?.hasError(validation.type) && 
+                          registerForm.get('lastName')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-label position="floating">Age</ion-label>
+            <ion-input type="number" formControlName="age"></ion-input>
+            <ion-note slot="error" *ngFor="let validation of validation_messages.age">
+              <span *ngIf="registerForm.get('age')?.hasError(validation.type) && 
+                          registerForm.get('age')?.touched">
+                {{ validation.message }}
+              </span>
+            </ion-note>
+          </ion-item>
+
+          <!--<ion-button expand="block" (click)="takePicture()" class="ion-margin-bottom">
+            <ion-icon name="camera" slot="start"></ion-icon>
+            Prendre une photo
+          </ion-button>
+
+          <ion-img *ngIf="photo" [src]="photo" class="profile-photo ion-margin-bottom"></ion-img>-->
+
+          <ion-button expand="block" type="submit" [disabled]="!registerForm.valid" class="ion-margin-bottom">
+            S'inscrire
+          </ion-button>
+
+          <ion-button expand="block" fill="clear" routerLink="/login">
+            Déjà un compte ? Se connecter
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Movie Buddies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="section-header ion-padding-bottom">
+    <ion-text color="medium">
+      <h2>Users with Similar Movie Tastes</h2>
+    </ion-text>
+  </div>
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="circles"></ion-spinner>
+    <ion-text>
+      <p class="ion-padding-top">Finding your movie matches...</p>
+    </ion-text>
+  </div>
+
+  <ion-card *ngIf="!isLoading && (!matchingUsers || matchingUsers.length === 0)" class="empty-state">
+    <ion-card-content class="ion-text-center ion-padding">
+      <ion-icon name="people-outline" color="medium" size="large"></ion-icon>
+      <h2 class="ion-padding-top">No Matches Yet</h2>
+      <p>Add more movies to your favorites to find users with similar taste!</p>
+      <ion-button expand="block" routerLink="/home" class="ion-margin-top">
+        <ion-icon slot="start" name="film-outline"></ion-icon>
+        Explore Movies
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="!isLoading && matchingUsers && matchingUsers.length > 0">
+    <ion-item *ngFor="let user of matchingUsers" class="user-item">
+      <div slot="start" class="avatar-container">
+        <ion-avatar>
+          <img src="https://randomuser.me/api/portraits/lego/1.jpg" [alt]="user.user.firstName">
+        </ion-avatar>
+        <div class="match-badge">
+          {{ user.matchRate }}%
+        </div>
+      </div>
+
+      <ion-label>
+        <h2 class="user-name">{{ user.user.firstName }} {{ user.user.lastName }}</h2>
+        
+        <div class="match-status">
+          <ion-progress-bar
+            [value]="user.matchRate / 100"
+            [color]="getMatchColor(user.matchRate)">
+          </ion-progress-bar>
+          <ion-text [color]="getMatchColor(user.matchRate)" class="match-text">
+            {{ getMatchLabel(user.matchRate) }}
+          </ion-text>
+        </div>
+
+        <div class="common-interests" *ngIf="user.commonGenres?.length">
+          <ion-chip *ngFor="let genre of user.commonGenres.slice(0, 3)" outline size="small">
+            {{ genre }}
+          </ion-chip>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

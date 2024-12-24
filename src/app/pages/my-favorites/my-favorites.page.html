@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Favorites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="circles"></ion-spinner>
+    <ion-text>
+      <p class="ion-padding-top">Loading your favorite movies...</p>
+    </ion-text>
+  </div>
+
+  <ion-card *ngIf="error" color="danger">
+    <ion-card-content class="ion-text-center">
+      <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+      <p>{{ error }}</p>
+      <ion-button fill="clear" (click)="retryLoading()">
+        <ion-icon slot="start" name="refresh-outline"></ion-icon>
+        Try Again
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!isLoading && !error && favoriteMovies.length === 0" class="empty-state">
+    <ion-card-content class="ion-text-center ion-padding">
+      <ion-icon name="heart-outline" color="medium" size="large"></ion-icon>
+      <h2 class="ion-padding-top">No Favorites Yet</h2>
+      <p>Start adding movies to your favorites list!</p>
+      <ion-button expand="block" routerLink="/home" class="ion-margin-top">
+        <ion-icon slot="start" name="film-outline"></ion-icon>
+        Explore Movies
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="!isLoading && !error && favoriteMovies.length > 0">
+    <ion-item-sliding *ngFor="let movie of favoriteMovies">
+      <ion-item class="movie-item">
+        
+        <ion-label class="ion-text-wrap">
+          <h2 class="movie-title">{{ movie.title }}</h2>
+          <p class="movie-overview">{{ movie.overview | slice:0:100 }}...</p>
+          <div class="movie-meta">
+            <ion-chip *ngIf="movie.release_date" outline>
+              <ion-icon name="calendar-outline"></ion-icon>
+              <ion-label>{{ movie.release_date | date:'yyyy-MM-dd' }}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="removeFromFavorites(movie)">
+          <ion-icon slot="icon-only" name="heart-dislike"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
